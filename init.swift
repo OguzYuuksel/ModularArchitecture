@@ -11,7 +11,7 @@ let packagePath: String? = "~/Desktop/LinkNow/Sources/Packages" // <projectPath>
 let packageType: String? = "screen"
 
 // MARK: Step 2 - Build Executable
-if FileManager.default.fileExists(atPath: buildFile.path) {
+if !FileManager.default.fileExists(atPath: buildFile.path) {
     let buildMAT = Commands.run("cd \(scriptDir!.path); swift build")
     guard buildMAT.statusCode == 0 else {
         echoFailure(buildMAT.output)
