@@ -1,0 +1,90 @@
+// Project: <<ProjectName>> - App
+// File: App_watchOS.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// #####################################################################################################
+// # - SceneDelegate vs AppDelegate                                                                    #
+// #   - https://stackoverflow.com/a/56498306/14811879                                                 #
+// #                                                                                                   #
+// # - AppDelegate Implementation                                                                      #
+// #   - https://stackoverflow.com/questions/62538110/swiftui-app-life-cycle-ios14-                    #
+// #     where-to-put-appdelegate-code                                                                 #
+// #   - https://developer.apple.com/forums/thread/659537                                              #
+// #####################################################################################################
+
+#if canImport(ComposableArchitecture) && canImport(SwiftUI) && os(watchOS)
+import ComposableArchitecture
+import SwiftUI
+import RootScreen
+
+@main
+struct App: SwiftUI.App {
+    
+    // MARK: Properties
+    @Environment(\.scenePhase) private var scenePhase
+    
+    // The Composable Architecture
+    let store = Store(
+        initialState: .init(),
+        reducer: appReducer,
+        environment: .init()
+    )
+    
+    // MARK: View
+    @SceneBuilder
+    var body: some Scene {
+        WithViewStore(store.scope(state: {_ in ()}, action: AppAction.init)) { viewStore in
+            WindowGroup {
+                NavigationView {
+                    RootScreen()
+                }
+            }
+            .onChange(of: scenePhase) { phase in
+                switch phase {
+                case .active:
+                    viewStore.send(.sceneActive)
+                    
+                case .inactive:
+                    viewStore.send(.sceneInactive)
+                    
+                case .background:
+                    viewStore.send(.sceneBackground)
+                    
+                @unknown default:
+                    fatalError("App().body: Scene is in unknown state!")
+                }
+            }
+        }
+        WKNotificationScene(controller: NotificationController.self, category: "myCategory")
+    }
+    
+    // MARK: Modules
+    // Composable Architecture
+    enum Action {
+        
+        // MARK: Cases
+        case sceneActive
+        case sceneInactive
+        case sceneBackground
+    }
+    
+}
+
+// MARK: - Extension AppAction
+fileprivate extension AppAction {
+
+    // MARK: Initializations
+    init(action: App.Action) {
+        switch action {
+        case .sceneActive:
+            self = .sceneActive
+        case .sceneInactive:
+            self = .sceneInactive
+        case .sceneBackground:
+            self = .sceneBackground
+        }
+    }
+}
+#endif

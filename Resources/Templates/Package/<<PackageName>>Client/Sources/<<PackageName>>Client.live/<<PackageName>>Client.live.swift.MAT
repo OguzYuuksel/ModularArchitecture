@@ -1,0 +1,18 @@
+// Project: <<ProjectName>> - <<PackageName>>Client
+// File: <<PackageName>>Client.live.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if canImport(Foundation)
+import Foundation
+
+extension <<PackageName>>Client {
+    
+    // MARK: Properties
+    public static var live: Self {
+        Self.init()
+    }
+
+}
+#endif

@@ -1,0 +1,17 @@
+// Project: <<ProjectName>> - App
+// File: appReducer.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if canImport(ComposableArchitecture)
+import Foundation
+import ComposableArchitecture
+
+let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+    switch action {
+    default:
+        return .none
+    }
+}
+#endif

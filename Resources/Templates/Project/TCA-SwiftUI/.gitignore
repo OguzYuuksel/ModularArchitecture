@@ -1,0 +1,10 @@
+**/.DS_Store
+**/*.xcodeproj
+**/*.resolved
+**/.swiftpm
+**/.build
+/Sources/Modules/
+/Resources/Plist/
+/Resources/Entitlement/
+/Resources/Tools/
+/Resources/XCconfig/ # Remove if configFiles are activated by XcodeGen.

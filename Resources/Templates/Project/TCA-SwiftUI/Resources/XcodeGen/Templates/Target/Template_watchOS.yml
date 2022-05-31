@@ -1,0 +1,163 @@
+############################################################
+# watchOS Template                                         #
+# - Usage in Project.yml file                              #
+#   targets:                                               #
+#     <<ProjectName>>-watchOS:                             #
+#       templates:                                         #
+#         - watchOS                                        #
+#       templateAttributes:                                #
+#         ProjectName: <<ProjectName>>                     #
+#                                                          #
+#     <<ProjectName>>-watchOS.extension:                   #
+#       templates:                                         #
+#         - watchOS.extension                              #
+############################################################
+targetTemplates:
+  watchOS:
+    type: application.watchapp2
+    platform: watchOS
+
+    ############################################################
+    # watchOS Target Sources & Resources                       #
+    ############################################################
+    sources:
+        - path: Resources/Assets/Assets_watchOS.xcassets # Assets for application icons.
+          buildPhase: resources
+
+    ############################################################
+    # watchOS Target Build Settings                            #
+    # - Setting Explanations                                   #
+    #   https://xcodebuildsettings.com/#category-swift         #
+    ############################################################
+    configFiles: # Overrides configs of Project's settings
+      MockSim: Resources/XCconfig/MockSim/MockSim_watchOS.xcconfig
+      MockDev: Resources/XCconfig/MockDev/MockDev_watchOS.xcconfig
+      LiveSim: Resources/XCconfig/LiveSim/LiveSim_watchOS.xcconfig
+      LiveDev: Resources/XCconfig/LiveDev/LiveDev_watchOS.xcconfig
+      AppStore: Resources/XCconfig/AppStore/AppStore_watchOS.xcconfig
+
+    #settings:
+    #  groups: [...] # Overrides settingPresets if it isn't none. Otherwise overrides configFiles
+    #  base: # Overrides settingGroups
+    #
+    #  configs:
+    #    MockSim: # Overrides base
+    #    MockDev: # Overrides base
+    #    LiveSim: # Overrides base
+    #    LiveDev: # Overrides base
+    #    AppStore: # Overrides base
+
+    ############################################################
+    # watchOS Target Info Plist (Deactivated)                  #
+    # - ".xcconfig" reads previously prepared plist file in    #
+    #   the "Resources/Plist/Info_watchOS.plist" path.         #
+    ############################################################
+    #info:
+    #  path: Resources/Plist/Info_watchOS.plist
+    #  properties:
+    #    Specific: $(VAR_SPECIFIC)
+
+    ############################################################
+    # watchOS Target Entitlements (Deactivated)                #
+    # - ".xcconfig" reads previously prepared entitlements     #
+    #   file in the "Resources/Entitlements/                   #
+    #   watchOS.entitlements" path.                            #
+    ############################################################
+    #entitlements:
+    #  path: Resources/Entitlements/watchOS.entitlements
+    #  properties:
+
+    ############################################################
+    # watchOS Target Dependencies (SPM)                        #
+    # - Dependencies must be defined in Project level.         #
+    ############################################################
+    dependencies:
+      - target: "${ProjectName}-watchOS.extension"
+
+    ############################################################
+    # watchOS Target Scripts                                   #
+    ############################################################
+    #preBuildScripts:
+    #  - script: |
+    #  		command do
+    #  		othercommand
+
+
+  watchOS.extension:
+    type: watchkit2-extension
+    platform: watchOS
+
+    ############################################################
+    # watchOS.extension Target Sources & Resources             #
+    ############################################################
+    sources:
+        - path: Sources
+          excludes:
+            - "Packages" # Packages are imported by sources.
+            - "**/*_iOS.swift"
+            - "**/*_macOS.swift"
+            - "**/*_tvOS.swift"
+          buildPhase: sources
+        - path: Resources/Assets/Assets_watchOS.extension.xcassets # Assets for watchOS extension.
+          buildPhase: resources
+
+    ############################################################
+    # watchOS.extension Target Build Settings                  #
+    # - Setting Explanations                                   #
+    #   https://xcodebuildsettings.com/#category-swift         #
+    ############################################################
+    configFiles: # Overrides configs of Project's settings
+      MockSim: Resources/XCconfig/MockSim/MockSim_watchOS.extension.xcconfig
+      MockDev: Resources/XCconfig/MockDev/MockDev_watchOS.extension.xcconfig
+      LiveSim: Resources/XCconfig/LiveSim/LiveSim_watchOS.extension.xcconfig
+      LiveDev: Resources/XCconfig/LiveDev/LiveDev_watchOS.extension.xcconfig
+      AppStore: Resources/XCconfig/AppStore/AppStore_watchOS.extension.xcconfig
+
+    #settings:
+    #  groups: [...] # Overrides settingPresets if it isn't none. Otherwise overrides configFiles
+    #  base: # Overrides settingGroups
+    #
+    #  configs:
+    #    MockSim: # Overrides base
+    #    MockDev: # Overrides base
+    #    LiveSim: # Overrides base
+    #    LiveDev: # Overrides base
+    #    AppStore: # Overrides base
+
+    ############################################################
+    # watchOS.extension Target Info Plist (Deactivated)        #
+    # - ".xcconfig" reads previously prepared plist file in    #
+    #   the "Resources/Plist/Info_watchOS.extension.plist"     #
+    #   path.                                                  #
+    ############################################################
+    #info:
+    #  path: Resources/Plist/Info_watchOS.extension.plist
+    #  properties:
+    #    Specific: $(VAR_SPECIFIC)
+
+    ############################################################
+    # watchOS.extension Target Entitlements (Deactivated)      #
+    # - ".xcconfig" reads previously prepared entitlements     #
+    #   file in the "Resources/Entitlements/                   #
+    #   watchOS.extension.entitlements" path.                  #
+    ############################################################
+    #entitlements:
+    #  path: Resources/Entitlements/watchOS.extension.entitlements
+    #  properties:
+
+    ############################################################
+    # watchOS.extension Target Dependencies (SPM)              #
+    # - Dependencies must be defined in Project level.         #
+    ############################################################
+    dependencies:
+      - package: ComposableArchitecture
+      - package: RootScreen
+      - package: Shared
+
+    ############################################################
+    # watchOS.extension Target Scripts                         #
+    ############################################################
+    #preBuildScripts:
+    #  - name: ScriptName
+    #    script: |
+    #      rm -rf "$DERIVED_SOURCES_DIR"

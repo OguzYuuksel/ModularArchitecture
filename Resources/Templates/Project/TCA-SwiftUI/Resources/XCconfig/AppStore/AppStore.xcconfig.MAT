@@ -1,0 +1,18 @@
+// Project: <<ProjectName>> - Resources
+// File: AppStore.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#include "../Base/Base.xcconfig"
+
+// MARK: - Custom Configurations
+BUNDLE_DISPLAY_NAME = $(PROJECT_NAME) // Application name seen by user.
+
+// MARK: - Default Configurations
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+ENABLE_NS_ASSERTIONS = NO
+SWIFT_COMPILATION_MODE = wholemodule
+SWIFT_OPTIMIZATION_LEVEL = -O
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE
+MTL_ENABLE_DEBUG_INFO = NO

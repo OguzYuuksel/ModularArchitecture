@@ -1,0 +1,27 @@
+// Project: <<ProjectName>> - Resources
+// File: Base_watchOS.extension.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+// MARK: - Custom Configurations
+PARENT_BUNDLE_ID_SUFFIX = ios.watchos
+BUNDLE_ID_SUFFIX = $(PARENT_BUNDLE_ID_SUFFIX).extension
+
+// MARK: - Default Configurations
+CURRENT_PROJECT_VERSION = 1 // build number
+MARKETING_VERSION = 1.0.0 // Semantic Versioning - App Store application's version
+TARGETED_DEVICE_FAMILY = 4
+WATCHOS_DEPLOYMENT_TARGET = 8.5
+CODE_SIGN_ENTITLEMENTS = $(SRCROOT)/Resources/Entitlements/watchOS.extension.entitlements
+INFOPLIST_FILE = $(SRCROOT)/Resources/Plist/Info_watchOS.extension.plist
+SDKROOT = watchos
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks
+SKIP_INSTALL = YES
+ENABLE_PREVIEWS = YES
+ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication

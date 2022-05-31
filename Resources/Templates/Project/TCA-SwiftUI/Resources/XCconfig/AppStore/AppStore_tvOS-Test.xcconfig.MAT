@@ -1,0 +1,13 @@
+// Project: <<ProjectName>> - Resources
+// File: AppStore_tvOS-Test.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#include "AppStore_tvOS.xcconfig"
+#include "../Base/Base_tvOS-Test.xcconfig"
+
+// MARK: - Custom Configurations
+
+// MARK: - Default Configurations
+ENABLE_PREVIEWS = NO // Overrides Base_tvOS.xcconfig

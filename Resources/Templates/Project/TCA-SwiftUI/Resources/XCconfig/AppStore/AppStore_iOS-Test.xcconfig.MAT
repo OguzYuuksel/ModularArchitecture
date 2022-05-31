@@ -1,0 +1,12 @@
+// Project: <<ProjectName>> - Resources
+// File: AppStore_iOS-Test.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#include "AppStore_iOS.xcconfig"
+#include "../Base/Base_iOS-Test.xcconfig"
+
+// MARK: - Custom Configurations
+
+// MARK: - Default Configurations

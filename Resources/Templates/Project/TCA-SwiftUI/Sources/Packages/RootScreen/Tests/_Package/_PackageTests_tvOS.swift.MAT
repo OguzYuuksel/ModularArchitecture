@@ -1,0 +1,27 @@
+// Project: <<ProjectName>> - RootScreen
+// File: _PackageTests_tvOS.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if os(tvOS)
+import XCTest
+@testable import RootScreen
+
+extension _PackageTests {
+    
+    func testResourcesBundlePath() {
+        XCTAssertTrue(resourcePath.contains("RootScreen_RootScreen_Resources_watchOS.bundle"))
+    }
+ 
+    func testOS() {
+        XCTAssertEqual(_os, .tvOS)
+    }
+    
+    func testDevice() {
+        XCTAssertEqual(_device, .tv)
+    }
+    
+}
+#endif
+

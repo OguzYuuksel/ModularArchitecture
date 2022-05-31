@@ -1,0 +1,19 @@
+// Project: <<ProjectName>> - Resources
+// File: LiveSim_iOS.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+#include "../Base/Base_iOS.xcconfig"
+// #include "LiveSim.xcconfig" Applied to the target at the Project Level. 
+
+// MARK: - Custom Configurations
+// VAR_SPECIFIC = VALUE_LIVESIM
+
+// MARK: - Default Configurations
+VALIDATE_PRODUCT = YES

@@ -1,0 +1,38 @@
+// Project: <<ProjectName>> - Shared
+// File: _bundleResources.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if canImport(Foundation)
+import Foundation
+
+#if os(iOS)
+@_exported import Shared_Resources_iOS
+/// iOS's Resources bundle.
+/// This bundle isn't available outside of this Package.
+let _bundleResources: Bundle? = Shared_Resources_iOS.sharedBundle
+
+#elseif os(macOS)
+@_exported import Shared_Resources_macOS
+/// macOS's Resources bundle.
+/// This bundle isn't available outside of this Package.
+let _bundleResources: Bundle? = Shared_Resources_macOS.sharedBundle
+
+#elseif os(tvOS)
+@_exported import Shared_Resources_tvOS
+/// tvOS's Resources bundle.
+/// This bundle isn't available outside of this Package.
+let _bundleResources: Bundle? = Shared_Resources_tvOS.sharedBundle
+
+#elseif os(watchOS)
+@_exported import Shared_Resources_watchOS
+/// watchOS's Resources bundle.
+/// This bundle isn't available outside of this Package.
+let _bundleResources: Bundle? = Shared_Resources_watchOS.sharedBundle
+
+#else
+/// This bundle isn't available outside of this Package.
+let _bundleResources: Bundle? = nil
+#endif
+#endif

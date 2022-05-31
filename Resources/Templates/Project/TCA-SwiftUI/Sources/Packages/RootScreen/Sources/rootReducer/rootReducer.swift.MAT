@@ -1,0 +1,17 @@
+// Project: <<ProjectName>> - RootScreen
+// File: rootReducer.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if canImport(ComposableArchitecture)
+import Foundation
+import ComposableArchitecture
+
+let rootReducer = Reducer<RootState, RootAction, RootEnvironment> { state, action, environment in
+    switch action {
+    default:
+        return .none
+    }
+}
+#endif

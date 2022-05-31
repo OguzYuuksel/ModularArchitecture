@@ -1,0 +1,118 @@
+// Project: <<ProjectName>> - <<PackageName>>Screen
+// File: _OS.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+enum _OS {
+    
+    // MARK: Cases
+    case iOS(String?)
+    case macOS(String?)
+    case tvOS(String?)
+    case watchOS(String?)
+    case unknown
+    
+    // MARK: Static Properties
+    /// - Returns: `_OS.iOS(nil)`.
+    static var iOS: Self { .iOS(nil) }
+    
+    /// - Returns: `_OS.macOS(nil)`.
+    static var macOS: Self { .macOS(nil) }
+    
+    /// - Returns: `_OS.tvOS(nil)`.
+    static var tvOS: Self { .tvOS(nil) }
+    
+    /// - Returns: `_OS.watchOS(nil)`.
+    static var watchOS: Self { .watchOS(nil) }
+    
+}
+
+// MARK: - Extension _OS: CustomStringConvertible
+extension _OS: CustomStringConvertible {
+    
+    // MARK: Properties
+    /// Textual representation of `_OS`.
+    var description: String {
+        switch self {
+        case .iOS(let version):
+            var os = "iOS"
+            if let version = version {
+                os.append(" \(version)")
+            }
+            return os
+            
+        case .macOS(let version):
+            var os = "macOS"
+            if let version = version {
+                os.append(" \(version)")
+            }
+            return os
+            
+        case .tvOS(let version):
+            var os = "tvOS"
+            if let version = version {
+                os.append(" \(version)")
+            }
+            return os
+            
+        case .watchOS(let version):
+            var os = "watchOS"
+            if let version = version {
+                os.append(" \(version)")
+            }
+            return os
+            
+        case .unknown:
+            return "unknown OS!"
+        }
+    }
+    
+}
+
+// MARK: - Extension _OS: Equatable
+extension _OS: Equatable {
+    
+    // MARK: Static Functions
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.iOS(let x), .iOS(let y)):
+            guard let x = x, let y = y else { return true }
+            return x == y
+        case (.macOS(let x), .macOS(let y)):
+            guard let x = x, let y = y else { return true }
+            return x == y
+        case (.tvOS(let x), .tvOS(let y)):
+            guard let x = x, let y = y else { return true }
+            return x == y
+        case (.watchOS(let x), .watchOS(let y)):
+            guard let x = x, let y = y else { return true }
+            return x == y
+        default: return false
+        }
+    }
+    
+}
+
+// MARK: - Global Property: _os
+#if canImport(Foundation)
+import Foundation
+private let version: String = {
+    let majorVersion = ProcessInfo.processInfo.operatingSystemVersion.majorVersion
+    let minorVersion = ProcessInfo.processInfo.operatingSystemVersion.minorVersion
+    let patchVersion = ProcessInfo.processInfo.operatingSystemVersion.patchVersion
+    // return ProcessInfo.processInfo.operatingSystemVersionString // watchOS Version 8.3 (Build 19S51)
+    return "\(majorVersion).\(minorVersion).\(patchVersion)" // watchOS 8.3
+}()
+#if os(iOS)
+let _os: _OS = .iOS(version)
+#elseif os(macOS)
+let _os: _OS = .macOS(version)
+#elseif os(tvOS)
+let _os: _OS = .tvOS(version)
+#elseif os(watchOS)
+let _os: _OS = .watchOS(version)
+#else
+let _os: _OS = .unknown
+#endif
+#endif

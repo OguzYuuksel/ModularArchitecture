@@ -1,0 +1,19 @@
+// Project: <<ProjectName>> - Resources
+// File: Base_watchOS-Test.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+// MARK: - Custom Configurations
+
+// MARK: - Default Configurations
+TEST_HOST = $(BUILT_PRODUCTS_DIR)/$(PROJECT_NAME)-watchOS.extension.appex/$(PROJECT_NAME)-watchOS.extension
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+BUNDLE_LOADER = $(TEST_HOST)
+CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO // Overrides Base.xcconfig
+SWIFT_EMIT_LOC_STRINGS = NO // Overrides Base.xcconfig

@@ -1,0 +1,28 @@
+// Project: <<ProjectName>> - Resources
+// File: Base_watchOS.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+// MARK: - Custom Configurations
+PARENT_BUNDLE_ID_SUFFIX = ios
+BUNDLE_ID_SUFFIX = $(PARENT_BUNDLE_ID_SUFFIX).watchos
+
+// MARK: - Default Configurations
+CURRENT_PROJECT_VERSION = 1 // build number
+MARKETING_VERSION = 1.0.0 // Semantic Versioning - App Store application's version
+TARGETED_DEVICE_FAMILY = 4
+WATCHOS_DEPLOYMENT_TARGET = 8.5
+CODE_SIGN_ENTITLEMENTS = $(SRCROOT)/Resources/Entitlements/watchOS.entitlements
+INFOPLIST_FILE = $(SRCROOT)/Resources/Plist/Info_watchOS.plist
+SDKROOT = watchos
+SKIP_INSTALL = YES
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+ENABLE_PREVIEWS = NO
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon

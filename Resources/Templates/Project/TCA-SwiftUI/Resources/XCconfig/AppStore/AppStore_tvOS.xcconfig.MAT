@@ -1,0 +1,14 @@
+// Project: <<ProjectName>> - Resources
+// File: AppStore_tvOS.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#include "../Base/Base_tvOS.xcconfig"
+// #include "AppStore.xcconfig" Applied to the target at the Project Level. 
+
+// MARK: - Custom Configurations
+// VAR_SPECIFIC = VALUE_APPSTORE
+
+// MARK: - Default Configurations
+VALIDATE_PRODUCT = YES

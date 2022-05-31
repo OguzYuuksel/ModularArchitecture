@@ -1,0 +1,19 @@
+// Project: <<ProjectName>> - Resources
+// File: LiveSim_macOS-Test.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+#include "LiveSim_macOS.xcconfig"
+#include "../Base/Base_macOS-Test.xcconfig"
+
+// MARK: - Custom Configurations
+
+// MARK: - Default Configurations
+ENABLE_PREVIEWS = NO // Overrides Base_macOS.xcconfig
+COMBINE_HIDPI_IMAGES = NO // Overrides Base_macOS.xcconfig

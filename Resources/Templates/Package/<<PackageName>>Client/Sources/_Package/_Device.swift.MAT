@@ -1,0 +1,68 @@
+// Project: <<ProjectName>> - <<PackageName>>Client
+// File: _Device.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+enum _Device {
+    
+    // MARK: Cases
+    case iPhone, iPad, mac, tv, watch, unknown
+    
+}
+
+// MARK: - Extension _Device: Equatable
+extension _Device: Equatable { /*...*/ }
+
+// MARK: - Extension _Device: CustomStringConvertible
+extension _Device: CustomStringConvertible {
+    
+    // MARK: Properties
+    /// Textual representation of `_Device`.
+    var description: String {
+        switch self {
+        case .iPhone:
+            return "iPhone"
+        case .iPad:
+            return "iPad"
+        case .mac:
+            return "Mac"
+        case .tv:
+            return "Apple TV"
+        case .watch:
+            return "Apple Watch"
+        case .unknown:
+            return "unknown"
+        }
+    }
+    
+}
+
+// MARK: - Global Property: _device
+#if os(iOS) && canImport(UIKit)
+import UIKit
+
+let _device: _Device = {
+    switch UIDevice.current.userInterfaceIdiom {
+    case .phone:
+        return .iPhone
+        
+    case .pad:
+        return .iPad
+
+    case .mac, .tv, .carPlay, .unspecified:
+        return .unknown
+        
+    @unknown default:
+        return .unknown
+    }
+}()
+#elseif os(macOS)
+let _device: _Device = .mac
+#elseif os(tvOS)
+let _device: _Device = .tv
+#elseif os(watchOS)
+let _device: _Device = .watch
+#else
+let _device: _Device = .unknown
+#endif

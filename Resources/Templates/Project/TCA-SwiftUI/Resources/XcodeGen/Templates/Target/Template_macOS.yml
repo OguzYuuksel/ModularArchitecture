@@ -1,0 +1,86 @@
+############################################################
+# macOS Template                                           #
+# - Usage in Project.yml file                              #
+#   targets:                                               #
+#     <<ProjectName>>-macOS:                               #
+#       templates:                                         #
+#         - macOS                                          #
+############################################################
+targetTemplates:
+  macOS:
+    type: application
+    platform: macOS
+
+    ############################################################
+    # macOS Target Sources & Resources                         #
+    ############################################################
+    sources:
+        - path: Sources
+          excludes:
+            - "Packages" # Packages are imported by sources.
+            - "**/*_iOS.swift"
+            - "**/*_tvOS.swift"
+            - "**/*_watchOS.swift"
+          buildPhase: sources
+        - path: Resources/Assets/Assets_macOS.xcassets # Assets for application icons.
+          buildPhase: resources
+
+    ############################################################
+    # macOS Target Build Settings                              #
+    # - Setting Explanations                                   #
+    #   https://xcodebuildsettings.com/#category-swift         #
+    ############################################################
+    configFiles: # Overrides configs of Project's settings
+      MockSim: Resources/XCconfig/MockSim/MockSim_macOS.xcconfig
+      MockDev: Resources/XCconfig/MockDev/MockDev_macOS.xcconfig
+      LiveSim: Resources/XCconfig/LiveSim/LiveSim_macOS.xcconfig
+      LiveDev: Resources/XCconfig/LiveDev/LiveDev_macOS.xcconfig
+      AppStore: Resources/XCconfig/AppStore/AppStore_macOS.xcconfig
+
+    #settings:
+    #  groups: [...] # Overrides settingPresets if it isn't none. Otherwise overrides configFiles
+    #  base: # Overrides settingGroups
+    #
+    #  configs:
+    #    MockSim: # Overrides base
+    #    MockDev: # Overrides base
+    #    LiveSim: # Overrides base
+    #    LiveDev: # Overrides base
+    #    AppStore: # Overrides base
+
+    ############################################################
+    # macOS Target Info Plist (Deactivated)                    #
+    # - ".xcconfig" reads previously prepared plist file in    #
+    #   the "Resources/Plist/Info_macOS.plist" path.           #
+    ############################################################
+    #info:
+    #  path: Resources/Plist/Info_macOS.plist
+    #  properties:
+    #    Specific: $(VAR_SPECIFIC)
+
+    ############################################################
+    # macOS Target Entitlements (Deactivated)                  #
+    # - ".xcconfig" reads previously prepared entitlements     #
+    #   file in the "Resources/Entitlements/macOS.entitlements"#
+    #   path.                                                  #
+    ############################################################
+    #entitlements:
+    #  path: Resources/Entitlements/macOS.entitlements
+    #  properties:
+
+    ############################################################
+    # macOS Target Dependencies (SPM)                          #
+    # - Dependencies must be defined in Project level.         #
+    ############################################################
+    dependencies:
+      - package: ComposableArchitecture
+      - package: RootScreen
+      - package: Shared
+
+    ############################################################
+    # macOS Target Scripts                                     #
+    ############################################################
+    #preBuildScripts:
+    #  - name: ScriptName
+    #    script: |
+    #      rm -rf "$DERIVED_SOURCES_DIR"

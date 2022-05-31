@@ -1,0 +1,18 @@
+// Project: <<ProjectName>> - Resources
+// File: MockSim_watchOS.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+#include "../Base/Base_watchOS.xcconfig"
+// #include "MockSim.xcconfig" Applied to the target at the Project Level. 
+
+// MARK: - Custom Configurations
+// VAR_SPECIFIC = VALUE_MOCKSIM
+
+// MARK: - Default Configurations

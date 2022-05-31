@@ -1,0 +1,84 @@
+############################################################
+# iOS-Test Template                                        #
+# - Usage in Project.yml file                              #
+#   targets:                                               #
+#     <<ProjectName>>-iOS-Test:                            #
+#       templates:                                         #
+#         - iOS-Test                                       #
+#       templateAttributes:                                #
+#         ProjectName: <<ProjectName>>                     #
+############################################################
+targetTemplates:
+  iOS-Test:
+    type: bundle.unit-test
+    platform: iOS
+
+    ############################################################
+    # iOS-Test Target Sources & Resources                      #
+    ############################################################
+    sources:
+        - path: Tests
+          excludes:
+            - "**/*_macOS.swift"
+            - "**/*_tvOS.swift"
+            - "**/*_watchOS.swift"
+          buildPhase: sources
+
+    ############################################################
+    # iOS-Test Target Build Settings                           #
+    # - Setting Explanations                                   #
+    #   https://xcodebuildsettings.com/#category-swift         #
+    ############################################################
+    configFiles: # Overrides configs of Project's settings
+      MockSim: Resources/XCconfig/MockSim/MockSim_iOS-Test.xcconfig
+      MockDev: Resources/XCconfig/MockDev/MockDev_iOS-Test.xcconfig
+      LiveSim: Resources/XCconfig/LiveSim/LiveSim_iOS-Test.xcconfig
+      LiveDev: Resources/XCconfig/LiveDev/LiveDev_iOS-Test.xcconfig
+      AppStore: Resources/XCconfig/AppStore/AppStore_iOS-Test.xcconfig
+
+    #settings:
+    #  groups: [...] # Overrides settingPresets if it isn't none. Otherwise overrides configFiles
+    #  base: # Overrides settingGroups
+    #
+    #  configs:
+    #    MockSim: # Overrides base
+    #    MockDev: # Overrides base
+    #    LiveSim: # Overrides base
+    #    LiveDev: # Overrides base
+    #    AppStore: # Overrides base
+
+    ############################################################
+    # iOS-Test Target Info Plist (Deactivated)                 #
+    # - ".xcconfig" reads previously prepared plist file in    #
+    #   the "Resources/Plist/Info_iOS.plist" path.             #
+    ############################################################
+    #info:
+    #  path: Resources/Plist/Info_iOS.plist
+    #  properties:
+    #    Specific: $(VAR_SPECIFIC)
+
+    ############################################################
+    # iOS-Test Target Entitlements (Deactivated)               #
+    # - ".xcconfig" reads previously prepared entitlements     #
+    #   file in the "Resources/Entitlements/iOS.entitlements"  #
+    #   path.                                                  #
+    ############################################################
+    #entitlements:
+    #  path: Resources/Entitlements/iOS.entitlements
+    #  properties:
+
+    ############################################################
+    # iOS-Test Target Dependencies (SPM)                       #
+    # - Dependencies must be defined in Project level.         #
+    ############################################################
+    dependencies:
+      - target: ${ProjectName}-iOS
+      - package: SnapshotTesting
+
+    ############################################################
+    # iOS-Test Target Scripts                                  #
+    ############################################################
+    #preBuildScripts:
+    #  - name: ScriptName
+    #    script: |
+    #      rm -rf "$DERIVED_SOURCES_DIR"

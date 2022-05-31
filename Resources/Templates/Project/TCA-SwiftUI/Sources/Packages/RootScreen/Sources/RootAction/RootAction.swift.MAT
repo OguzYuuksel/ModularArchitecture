@@ -1,0 +1,15 @@
+// Project: <<ProjectName>> - RootScreen
+// File: RootAction.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if canImport(Foundation)
+import Foundation
+
+enum RootAction: Equatable {
+    
+    // MARK: Cases
+    case none
+}
+#endif

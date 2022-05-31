@@ -1,0 +1,34 @@
+// Project: <<ProjectName>> - App
+// File: NotificationController_watchOS.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if canImport(WatchKit) && canImport(SwiftUI) && canImport(UserNotifications) && os(watchOS)
+import WatchKit
+import SwiftUI
+import UserNotifications
+
+public class NotificationController: WKUserNotificationHostingController<Text> {
+
+    public override var body: Text {
+        return Text("NotificationScreen")
+    }
+
+    public override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
+    }
+
+    public override func didDeactivate() {
+        // This method is called when watch view controller is no longer visible
+        super.didDeactivate()
+    }
+
+    public override func didReceive(_ notification: UNNotification) {
+        // This method is called when a notification needs to be presented.
+        // Implement it if you use a dynamic notification interface.
+        // Populate your dynamic notification interface as quickly as possible.
+    }
+}
+#endif

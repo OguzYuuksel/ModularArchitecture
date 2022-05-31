@@ -1,0 +1,13 @@
+// Project: <<ProjectName>> - Resources
+// File: AppStore_watchOS-Test.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#include "AppStore_watchOS.extension.xcconfig"
+#include "../Base/Base_watchOS-Test.xcconfig"
+
+// MARK: - Custom Configurations
+
+// MARK: - Default Configurations
+ENABLE_PREVIEWS = NO // Overrides Base_watchOS.extension.xcconfig

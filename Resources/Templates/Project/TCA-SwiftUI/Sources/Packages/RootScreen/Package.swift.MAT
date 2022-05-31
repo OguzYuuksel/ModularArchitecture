@@ -1,0 +1,150 @@
+// swift-tools-version: 5.6
+
+// Project: <<ProjectName>> - RootScreen
+// File: Package.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+import PackageDescription
+
+fileprivate let packageName: String = "RootScreen"
+let package = Package(
+    name: packageName,
+    platforms: [
+        .iOS(.v15),
+        .macOS(.v12),
+        .tvOS(.v15),
+        .watchOS(.v8),
+    ],
+    products: [
+        .library(
+            name: packageName,
+            targets: [packageName]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.35.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.9.0"),
+        .package(path: "../Shared"),
+    ],
+    targets: [
+
+        // Shared
+        .target(
+            name: packageName,
+            dependencies: [
+                // Default Targets
+                .target(name: "\(packageName)_Resources_iOS", condition: .when(platforms: [.iOS])),
+                .target(name: "\(packageName)_Resources_macOS", condition: .when(platforms: [.macOS])),
+                .target(name: "\(packageName)_Resources_tvOS", condition: .when(platforms: [.tvOS])),
+                .target(name: "\(packageName)_Resources_watchOS", condition: .when(platforms: [.watchOS])),
+
+                // Custom Targets
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "Shared", package: "Shared"),
+            ],
+            path: "Sources",
+            exclude: [
+            ],
+            sources: [
+                "./",
+            ],
+            resources: [
+                // .copy("") -> Copies as it is
+                // .process("") -> Copies by optimizing resource.
+            ]
+        ),
+        .testTarget(
+            name: "\(packageName)-Tests",
+            dependencies: [
+                .init(stringLiteral: packageName),
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ],
+            path: "Tests",
+            sources: [
+                "./",
+            ]
+        ),
+
+        // iOS
+        .target(
+            name: "\(packageName)_Resources_iOS",
+            path: "Resources",
+            exclude: [
+                "Resources_macOS",
+                "bundle_macOS.swift",
+                "Resources_tvOS",
+                "bundle_tvOS.swift",
+                "Resources_watchOS",
+                "bundle_watchOS.swift",
+            ],
+            sources: [
+                "bundle_iOS.swift",
+            ],
+            resources: [
+                .process("Resources_iOS"),
+            ]
+        ),
+
+        // macOS
+        .target(
+            name: "\(packageName)_Resources_macOS",
+            path: "Resources",
+            exclude: [
+                "Resources_iOS",
+                "bundle_iOS.swift",
+                "Resources_tvOS",
+                "bundle_tvOS.swift",
+                "Resources_watchOS",
+                "bundle_watchOS.swift",
+            ],
+            sources: [
+                "bundle_macOS.swift",
+            ],
+            resources: [
+                .process("Resources_macOS"),
+            ]
+        ),
+
+        // tvOS
+        .target(
+            name: "\(packageName)_Resources_tvOS",
+            path: "Resources",
+            exclude: [
+                "Resources_iOS",
+                "bundle_iOS.swift",
+                "Resources_macOS",
+                "bundle_macOS.swift",
+                "Resources_watchOS",
+                "bundle_watchOS.swift",
+            ],
+            sources: [
+                "bundle_tvOS.swift",
+            ],
+            resources: [
+                .process("Resources_tvOS"),
+            ]
+        ),
+
+        // watchOS
+        .target(
+            name: "\(packageName)_Resources_watchOS",
+            path: "Resources",
+            exclude: [
+                "Resources_iOS",
+                "bundle_iOS.swift",
+                "Resources_macOS",
+                "bundle_macOS.swift",
+                "Resources_tvOS",
+                "bundle_tvOS.swift",
+            ],
+            sources: [
+                "bundle_watchOS.swift",
+            ],
+            resources: [
+                .process("Resources_watchOS"),
+            ]
+        ),
+
+    ]
+)

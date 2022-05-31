@@ -1,0 +1,65 @@
+############################################################
+# TestFligt Scheme Template                                #
+# - Usage in Project.yml file                              #
+#   schemes:                                               #
+#     TestFligt-<<OS>>:                                    #
+#       templates:                                         #
+#         - TestFligt                                      #
+#       templateAttributes:                                #
+#         ProjectName: <<ProjectName>>                     #
+#         osName: <<OS>>                                   #
+############################################################
+schemeTemplates:
+  TestFligt:
+
+    ############################################################
+    # TestFligt Scheme - build                                 #
+    ############################################################
+    build:
+      targets:
+        ${ProjectName}-${osName}: all
+        ${ProjectName}-${osName}-Test: [test]
+
+    ############################################################
+    # TestFligt Scheme - run                                   #
+    # - Runs project on selected device or simulator.          #
+    # - TestFligt is a release scheme. Therefore,              #
+    #   select real device to run!                             #
+    ############################################################
+    run:
+      config: LiveDev
+      executable: ${ProjectName}-${osName}
+
+    ############################################################
+    # TestFligt Scheme - test                                  #
+    # - Runs tests.                                            #
+    ############################################################
+    test:
+      config: MockDev
+      targets:
+        - ${ProjectName}-${osName}-Test
+      gatherCoverageData: true
+      coverageTargets:
+        - ${ProjectName}-${osName}
+
+    ############################################################
+    # TestFligt Scheme - profile                               #
+    # - ?????                                                  #
+    ############################################################
+    profile:
+      config: LiveDev
+
+    ############################################################
+    # TestFligt Scheme - analyze                               #
+    #   - Gets warnings on C++/Obj-C code.                     #
+    #     (Xcode does this during coding for Swift).           #
+    ############################################################
+    analyze:
+      config: MockDev
+
+    ############################################################
+    # TestFligt Scheme - archive                               #
+    # - ?????                                                  #
+    ############################################################
+    archive:
+      config: LiveDev

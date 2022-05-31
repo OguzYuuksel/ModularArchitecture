@@ -1,0 +1,273 @@
+############################################################
+# Project Options                                          #
+############################################################
+name: <<ProjectName>>
+options:
+  minimumXcodeGenVersion: 2.26.0
+  groupSortPosition: bottom # group are after files in project navigator.
+  generateEmptyDirectories: true
+  createIntermediateGroups: true
+  settingPresets: project # overrides configFiles if used.
+  groupOrdering:
+    - order: [README.md, init.swift, Sources, Resources, Packages, Frameworks, Products]
+    - pattern: Sources
+      order: [App, ComplicationController, NotificationController, AppState, AppAction, appReducer, AppEnvironment]
+    - pattern: Resources
+      order: [Assets, LaunchScreen, Localization, XCconfig, Plist, Entitlements, Scripts, XcodeGen]
+    - pattern: XCconfig
+      order: [Base, MockSim, MockDev, LiveSim, LiveDev, AppStore]
+
+############################################################
+# Project Configurations                                   #
+# - App Distribution according to configurations           #
+#   - https://developer.apple.com/library/archive/         #
+#     documentation/ToolsLanguages/Conceptual/             #
+#     DevPortalGuide/DistributinganApp/                    #
+#     DistributinganApp.html                               #
+# - Each config maps to a build type of either `debug` or  #
+#   `release` which will then apply default build settings #
+#   to the project. Any value other than debug or release  #
+#   (for example `none`), will mean no default build       #
+#   settings will be applied to the project.               #
+############################################################
+configs:
+  MockSim: debug
+  MockDev: debug
+  LiveSim: release
+  LiveDev: release
+  AppStore: release
+
+############################################################
+# Project Build Settings                                   #
+# - Setting Explanations                                   #
+#   https://xcodebuildsettings.com/#category-swift         #
+# - These settings are target independent.                 #
+############################################################
+configFiles: # Overrides XCode SDK default settings
+  MockSim: Resources/XCconfig/MockSim/MockSim.xcconfig
+  MockDev: Resources/XCconfig/MockDev/MockDev.xcconfig
+  LiveSim: Resources/XCconfig/LiveSim/LiveSim.xcconfig
+  LiveDev: Resources/XCconfig/LiveDev/LiveDev.xcconfig
+  AppStore: Resources/XCconfig/AppStore/AppStore.xcconfig
+
+#settings:
+# groups: [...] # Overrides settingPresets if it isn't none. Otherwise overrides configFiles
+#  base: # Overrides settingGroups
+#  configs:
+#    MockSim: # Overrides base
+#    MockDev: # Overrides base
+#    LiveSim: # Overrides base
+#    LiveDev: # Overrides base
+#    AppStore: # Overrides base
+
+############################################################
+# Project Schemes                                          #
+# - Xcode automatically creates a scheme for each target,  #
+#   init.swift removes these autocreated schemes.          #
+############################################################
+schemes:
+  AppStore-iOS:
+    templates:
+      - AppStore
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: iOS
+
+  TestFligt-iOS:
+    templates:
+      - TestFligt
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: iOS
+
+  Simulator-iOS:
+    templates:
+      - Simulator
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: iOS
+
+  AppStore-macOS:
+    templates:
+      - AppStore
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: macOS
+
+  TestFligt-macOS:
+    templates:
+      - TestFligt
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: macOS
+
+  Simulator-macOS:
+    templates:
+      - Simulator
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: macOS
+
+  AppStore-tvOS:
+    templates:
+      - AppStore
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: tvOS
+
+  TestFligt-tvOS:
+    templates:
+      - TestFligt
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: tvOS
+
+  Simulator-tvOS:
+    templates:
+      - Simulator
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: tvOS
+
+  AppStore-watchOS:
+    templates:
+      - AppStore
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: watchOS
+
+  TestFligt-watchOS:
+    templates:
+      - TestFligt
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: watchOS
+
+  Simulator-watchOS:
+    templates:
+      - Simulator
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+      osName: watchOS
+
+############################################################
+# Resources Directory                                      #
+# - Groups that will be shown in the xcode project         #
+#   navigator                                              #
+# - This directory will not be copied into targets bundle. #
+############################################################
+fileGroups:
+  - README.md
+  - init.swift
+  - Resources/XCconfig
+  - Resources/Plist
+  - Resources/Entitlements
+  - Resources/Scripts
+  - Resources/XcodeGen
+
+############################################################
+# Project Modules (SPM)                                    #
+# - Modular Architecture's modules are Root, Global,       #
+#   Resources, <<PackageName>>Client,                      #
+#   <<PackageName>>Screen...                               #
+# - Project specific packages are referenced by            #
+#   locally(path).                                         #
+# - All local packages should be referenced from here      #
+#   to tidy them up in one place while developing.         #
+#   (This is not mandatory but recommended.)               #
+############################################################
+packages:
+# Remote Packages
+  ComposableArchitecture:
+     url: https://github.com/pointfreeco/swift-composable-architecture
+     from: 0.35.0
+  SnapshotTesting:
+     url: https://github.com/pointfreeco/swift-snapshot-testing
+     from: 1.9.0
+
+# Local Packages
+  RootScreen:
+     path: "Sources/Packages/RootScreen"
+  Shared:
+     path: "Sources/Packages/Shared"
+
+############################################################
+# Project Targets                                          #
+############################################################
+targets:
+  <<ProjectName>>-iOS:
+    templates:
+      - iOS
+
+  <<ProjectName>>-iOS-Test:
+    templates:
+      - iOS-Test
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+
+  <<ProjectName>>-macOS:
+    templates:
+      - macOS
+
+  <<ProjectName>>-macOS-Test:
+    templates:
+      - macOS-Test
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+
+  <<ProjectName>>-tvOS:
+    templates:
+      - tvOS
+
+  <<ProjectName>>-tvOS-Test:
+    templates:
+      - tvOS-Test
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+
+  <<ProjectName>>-watchOS:
+    templates:
+      - watchOS
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+
+  <<ProjectName>>-watchOS.extension:
+    templates:
+      - watchOS.extension
+
+  <<ProjectName>>-watchOS-Test:
+    templates:
+      - watchOS-Test
+    templateAttributes:
+      ProjectName: <<ProjectName>>
+
+include:
+############################################################
+# Target Templates                                         #
+############################################################
+  - path: ./Templates/Target/Template_iOS.yml
+    relativePaths: false
+  - path: ./Templates/Target/Template_iOS-Test.yml
+    relativePaths: false
+  - path: ./Templates/Target/Template_macOS.yml
+    relativePaths: false
+  - path: ./Templates/Target/Template_macOS-Test.yml
+    relativePaths: false
+  - path: ./Templates/Target/Template_tvOS.yml
+    relativePaths: false
+  - path: ./Templates/Target/Template_tvOS-Test.yml
+    relativePaths: false
+  - path: ./Templates/Target/Template_watchOS.yml
+    relativePaths: false
+  - path: ./Templates/Target/Template_watchOS-Test.yml
+    relativePaths: false
+
+############################################################
+# Scheme Templates                                         #
+############################################################
+  - path: ./Templates/Scheme/Template_AppStore.yml
+    relativePaths: false
+  - path: ./Templates/Scheme/Template_TestFlight.yml
+    relativePaths: false
+  - path: ./Templates/Scheme/Template_Simulator.yml
+    relativePaths: false

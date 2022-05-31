@@ -1,0 +1,86 @@
+############################################################
+# tvOS Template                                            #
+# - Usage in Project.yml file                              #
+#   targets:                                               #
+#     <<ProjectName>>-tvOS:                                #
+#       templates:                                         #
+#         - tvOS                                           #
+############################################################
+targetTemplates:
+  tvOS:
+    type: application
+    platform: tvOS
+
+    ############################################################
+    # tvOS Target Sources & Resources                          #
+    ############################################################
+    sources:
+        - path: Sources
+          excludes:
+            - "Packages" # Packages are imported by sources.
+            - "**/*_iOS.swift"
+            - "**/*_macOS.swift"
+            - "**/*_watchOS.swift"
+          buildPhase: sources
+        - path: Resources/Assets/Assets_tvOS.xcassets # Assets for application icons.
+          buildPhase: resources
+
+    ############################################################
+    # tvOS Target Build Settings                               #
+    # - Setting Explanations                                   #
+    #   https://xcodebuildsettings.com/#category-swift         #
+    ############################################################
+    configFiles: # Overrides configs of Project's settings
+      MockSim: Resources/XCconfig/MockSim/MockSim_tvOS.xcconfig
+      MockDev: Resources/XCconfig/MockDev/MockDev_tvOS.xcconfig
+      LiveSim: Resources/XCconfig/LiveSim/LiveSim_tvOS.xcconfig
+      LiveDev: Resources/XCconfig/LiveDev/LiveDev_tvOS.xcconfig
+      AppStore: Resources/XCconfig/AppStore/AppStore_tvOS.xcconfig
+
+    #settings:
+    #  groups: [...] # Overrides settingPresets if it isn't none. Otherwise overrides configFiles
+    #  base: # Overrides settingGroups
+    #
+    #  configs:
+    #    MockSim: # Overrides base
+    #    MockDev: # Overrides base
+    #    LiveSim: # Overrides base
+    #    LiveDev: # Overrides base
+    #    AppStore: # Overrides base
+
+    ############################################################
+    # tvOS Target Info Plist (Deactivated)                     #
+    # - ".xcconfig" reads previously prepared plist file in    #
+    #   the "Resources/Plist/Info_tvOS.plist" path.            #
+    ############################################################
+    #info:
+    #  path: Resources/Plist/Info_tvOS.plist
+    #  properties:
+    #    Specific: $(VAR_SPECIFIC)
+
+    ############################################################
+    # tvOS Target Entitlements (Deactivated)                   #
+    # - ".xcconfig" reads previously prepared entitlements     #
+    #   file in the "Resources/Entitlements/tvOS.entitlements" #
+    #   path.                                                  #
+    ############################################################
+    #entitlements:
+    #  path: Resources/Entitlements/tvOS.entitlements
+    #  properties:
+
+    ############################################################
+    # tvOS Target Dependencies (SPM)                           #
+    # - Dependencies must be defined in Project level.         #
+    ############################################################
+    dependencies:
+      - package: ComposableArchitecture
+      - package: RootScreen
+      - package: Shared
+
+    ############################################################
+    # tvOS Target Scripts                                      #
+    ############################################################
+    #preBuildScripts:
+    #  - name: ScriptName
+    #    script: |
+    #      rm -rf "$DERIVED_SOURCES_DIR"

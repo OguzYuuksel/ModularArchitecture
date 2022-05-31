@@ -1,0 +1,18 @@
+// Project: <<ProjectName>> - Resources
+// File: MockDev_watchOS.extension.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+#include "../Base/Base_watchOS.extension.xcconfig"
+// #include "MockDev.xcconfig" Applied to the target at the Project Level. 
+
+// MARK: - Custom Configurations
+// VAR_SPECIFIC = VALUE_MOCKDEV
+
+// MARK: - Default Configurations

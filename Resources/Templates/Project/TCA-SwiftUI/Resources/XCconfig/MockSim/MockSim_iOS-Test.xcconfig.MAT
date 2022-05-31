@@ -1,0 +1,17 @@
+// Project: <<ProjectName>> - Resources
+// File: MockSim_iOS-Test.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+#include "MockSim_iOS.xcconfig"
+#include "../Base/Base_iOS-Test.xcconfig"
+
+// MARK: - Custom Configurations
+
+// MARK: - Default Configurations

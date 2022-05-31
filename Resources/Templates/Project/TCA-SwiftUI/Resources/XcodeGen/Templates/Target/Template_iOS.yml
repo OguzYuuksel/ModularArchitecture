@@ -1,0 +1,88 @@
+############################################################
+# iOS Template                                             #
+# - Usage in Project.yml file                              #
+#   targets:                                               #
+#     <<ProjectName>>-iOS:                                 #
+#       templates:                                         #
+#         - iOS                                            #
+############################################################
+targetTemplates:
+  iOS:
+    type: application
+    platform: iOS
+
+    ############################################################
+    # iOS Target Sources & Resources                           #
+    ############################################################
+    sources:
+        - path: Sources
+          excludes:
+            - "Packages" # Packages are imported by sources.
+            - "**/*_macOS.swift"
+            - "**/*_tvOS.swift"
+            - "**/*_watchOS.swift"
+          buildPhase: sources
+        - path: Resources # Assets for application icons.
+          includes: [Assets/Assets_iOS.xcassets, Localization, LaunchScreen]
+          buildPhase: resources
+
+    ############################################################
+    # iOS Target Build Settings                                #
+    # - Setting Explanations                                   #
+    #   https://xcodebuildsettings.com/#category-swift         #
+    ############################################################
+    configFiles: # Overrides configs of Project's settings
+      MockSim: Resources/XCconfig/MockSim/MockSim_iOS.xcconfig
+      MockDev: Resources/XCconfig/MockDev/MockDev_iOS.xcconfig
+      LiveSim: Resources/XCconfig/LiveSim/LiveSim_iOS.xcconfig
+      LiveDev: Resources/XCconfig/LiveDev/LiveDev_iOS.xcconfig
+      AppStore: Resources/XCconfig/AppStore/AppStore_iOS.xcconfig
+
+    settings:
+      INFOPLIST_FILE: Resources/Plist/Info_iOS.plist # Fix: XcodeGen overrides .xcconfig in this isn't set in here.
+    #  groups: [...] # Overrides settingPresets if it isn't none. Otherwise overrides configFiles
+    #  base: # Overrides settingGroups
+    #
+    #  configs:
+    #    MockSim: # Overrides base
+    #    MockDev: # Overrides base
+    #    LiveSim: # Overrides base
+    #    LiveDev: # Overrides base
+    #    AppStore: # Overrides base
+
+    ############################################################
+    # iOS Target Info Plist (Deactivated)                      #
+    # - ".xcconfig" reads previously prepared plist file in    #
+    #   the "Resources/Plist/Info_iOS.plist" path.             #
+    ############################################################
+    #info:
+    #  path: Resources/Plist/Info_iOS.plist
+    #  properties:
+    #    Specific: $(VAR_SPECIFIC)
+
+    ############################################################
+    # iOS Target Entitlements (Deactivated)                    #
+    # - ".xcconfig" reads previously prepared entitlements     #
+    #   file in the "Resources/Entitlements/iOS.entitlements"  #
+    #   path.                                                  #
+    ############################################################
+    #entitlements:
+    #  path: Resources/Entitlements/iOS.entitlements
+    #  properties:
+
+    ############################################################
+    # iOS Target Dependencies (SPM)                            #
+    # - Dependencies must be defined in Project level.         #
+    ############################################################
+    dependencies:
+      - package: ComposableArchitecture
+      - package: RootScreen
+      - package: Shared
+
+    ############################################################
+    # iOS Target Scripts                                       #
+    ############################################################
+    #preBuildScripts:
+    #  - name: ScriptName
+    #    script: |
+    #      rm -rf "$DERIVED_SOURCES_DIR"

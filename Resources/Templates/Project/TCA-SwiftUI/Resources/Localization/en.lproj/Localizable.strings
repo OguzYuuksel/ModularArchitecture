@@ -1,0 +1,18 @@
+// Project: UIKit-TCA
+// File: en.lproj/Localizable.swift
+// Copyright © 2022 Oguz Yuksel. All rights reserved.
+//
+// Created by Oguz Yuksel(oguz.yuuksel@gmail.com) on 21.04.2022.
+
+// #####################################################################################################
+// # - How to use;                                                                                     #
+// #   - https://stackoverflow.com/a/43762760/14811879                                                 #
+// #                                                                                                   #
+// # - Sample ContentView.swift                                                                        #
+// #   - String(format: NSLocalizedString("Developed by %@.", comment: ""), "Oğuz Yüksel")             #
+// #     String(format: NSLocalizedString("%d times tapped.", comment: ""), 10)                        #
+// #                                                                                                   #
+// # - Sample Localizable.strings                                                                      #
+// #   - "%d times tapped." = "%d times tapped.";                                                      #
+// #     "Developed by %@." = "Developed by %@.";                                                      #
+// #####################################################################################################

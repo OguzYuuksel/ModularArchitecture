@@ -1,0 +1,18 @@
+// Project: <<ProjectName>> - Resources
+// File: MockSim_watchOS-Test.xcconfig
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// ############################################################
+// # - Setting Explanations                                   #
+// #   https://xcodebuildsettings.com/#category-swift         #
+// ############################################################
+
+#include "MockSim_watchOS.extension.xcconfig"
+#include "../Base/Base_watchOS-Test.xcconfig"
+
+// MARK: - Custom Configurations
+
+// MARK: - Default Configurations
+ENABLE_PREVIEWS = NO // Overrides Base_watchOS.extension.xcconfig

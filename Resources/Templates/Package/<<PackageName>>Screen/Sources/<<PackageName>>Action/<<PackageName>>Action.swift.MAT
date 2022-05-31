@@ -1,0 +1,15 @@
+// Project: <<ProjectName>> - <<PackageName>>Screen
+// File: <<PackageName>>Action.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+#if canImport(Foundation)
+import Foundation
+
+enum <<PackageName>>Action: Equatable {
+    
+    // MARK: Cases
+    case none
+}
+#endif
