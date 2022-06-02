@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: Step 1 - Enter arguments
-let projectName: String = "LinkNow"
+let projectName: String = "LinkNow1"
 let packageName: String? = "OnlineCourse"
 let developer: String = "Oguz\\ Yuksel"
 let contact: String = "oguz.yuksel@huawei.com"

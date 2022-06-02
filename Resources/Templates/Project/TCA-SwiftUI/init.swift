@@ -103,22 +103,17 @@ echoSuccess("Completed ✓")
 
 // MARK: Step 5 - Clean auto generated .xcschemes
 echoInfo("Cleaning auto generated .xcschemes")
-
-let defaultSchemes: [URL]? = {
-    let files = try? FileManager.default.contentsOfDirectory(at: Destination.xcodeprojSchemes.url, includingPropertiesForKeys: [], options: [])
-    let prefix = Destination.xcodeproj.url.deletingPathExtension().lastPathComponent
-    return files?.filter { $0.lastPathComponent.hasPrefix(prefix) }
-}()
-guard let defaultSchemes = defaultSchemes else {
-    terminateWithFailure(reason: "auto generated schemes couldn't find!")
-}
-defaultSchemes.forEach { scheme in
-    try? FileManager.default.removeItem(at: scheme)
-}
+try? FileManager.default.removeItem(at: Destination.xcodeprojSchemes.url)
 echoSuccess("Completed ✓")
 
-// MARK: Step 6 - Run swift-format
+// MARK: Step 6 - Copy .xcschemes
+echoInfo("Copying Resources/Schemes into .xcschemes")
+try? FileManager.default.copyItem(at: Destination.schemes.url, to: Destination.xcodeprojSchemes.url)
+echoSuccess("Completed ✓")
+
+// MARK: Step 7 - Run swift-format
 // where to add? post commit, pre commit, pre built, post build, inside modules?
+
 
 
 
@@ -137,6 +132,7 @@ enum Destination {
     case resources
     case tools
     case xcodegen
+    case schemes
     case swiftformat
     case xcodeproj
     case xcodeprojSchemes
@@ -159,6 +155,10 @@ enum Destination {
             
         case .swiftformat:
             return Destination.tools.url.appendingPathComponent("swift-format", isDirectory: true)
+            
+        case .schemes:
+            return Destination.resources.url
+                .appendingPathComponent("Schemes", isDirectory: true)
             
         case .xcodeproj:
             let fileName = try? FileManager.default.contentsOfDirectory(atPath: Destination.project.path).first { $0.hasSuffix(".xcodeproj") }

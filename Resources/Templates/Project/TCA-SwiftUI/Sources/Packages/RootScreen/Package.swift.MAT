@@ -11,6 +11,7 @@ import PackageDescription
 fileprivate let packageName: String = "RootScreen"
 let package = Package(
     name: packageName,
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v15),
         .macOS(.v12),

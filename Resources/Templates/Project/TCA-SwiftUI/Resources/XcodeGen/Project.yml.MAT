@@ -13,7 +13,7 @@ options:
     - pattern: Sources
       order: [App, ComplicationController, NotificationController, AppState, AppAction, appReducer, AppEnvironment]
     - pattern: Resources
-      order: [Assets, Localization, XCconfig, Plist, Entitlements, Scripts, XcodeGen]
+      order: [Assets, Localization, XCconfig, Plist, Schemes, Entitlements, Scripts, XcodeGen]
     - pattern: XCconfig
       order: [Base, MockSim, MockDev, LiveSim, LiveDev, AppStore]
 
@@ -62,93 +62,13 @@ configFiles: # Overrides XCode SDK default settings
 
 ############################################################
 # Project Schemes                                          #
-# - Xcode automatically creates a scheme for each target,  #
-#   init.swift removes these autocreated schemes.          #
+# - init.swift removes these auto-created schemes,         #
+#   and copying schemes which are place /Resources/Schemes #
+#   into .xcodeproj.                                       #
+# - Don't forget to export Schemes into /Resources/Schemes #
+#   after modifying them by Xcode                          #
 ############################################################
-schemes:
-  AppStore-iOS:
-    templates:
-      - AppStore
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: iOS
-
-  TestFligt-iOS:
-    templates:
-      - TestFligt
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: iOS
-
-  Simulator-iOS:
-    templates:
-      - Simulator
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: iOS
-
-  AppStore-macOS:
-    templates:
-      - AppStore
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: macOS
-
-  TestFligt-macOS:
-    templates:
-      - TestFligt
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: macOS
-
-  Simulator-macOS:
-    templates:
-      - Simulator
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: macOS
-
-  AppStore-tvOS:
-    templates:
-      - AppStore
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: tvOS
-
-  TestFligt-tvOS:
-    templates:
-      - TestFligt
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: tvOS
-
-  Simulator-tvOS:
-    templates:
-      - Simulator
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: tvOS
-
-  AppStore-watchOS:
-    templates:
-      - AppStore
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: watchOS
-
-  TestFligt-watchOS:
-    templates:
-      - TestFligt
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: watchOS
-
-  Simulator-watchOS:
-    templates:
-      - Simulator
-    templateAttributes:
-      ProjectName: <<ProjectName>>
-      osName: watchOS
+#schemes:
 
 ############################################################
 # Resources Directory                                      #
@@ -161,6 +81,7 @@ fileGroups:
   - init.swift
   - Resources/XCconfig
   - Resources/Plist
+  - Resources/Schemes
   - Resources/Entitlements
   - Resources/Scripts
   - Resources/XcodeGen
@@ -260,14 +181,4 @@ include:
   - path: ./Templates/Target/Template_watchOS.yml
     relativePaths: false
   - path: ./Templates/Target/Template_watchOS-Test.yml
-    relativePaths: false
-
-############################################################
-# Scheme Templates                                         #
-############################################################
-  - path: ./Templates/Scheme/Template_AppStore.yml
-    relativePaths: false
-  - path: ./Templates/Scheme/Template_TestFlight.yml
-    relativePaths: false
-  - path: ./Templates/Scheme/Template_Simulator.yml
     relativePaths: false
