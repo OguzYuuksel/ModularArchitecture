@@ -11,8 +11,7 @@
 
 - TODO: iOS 13(UIKit) Support
   https://stackoverflow.com/questions/62880536/supporting-different-lifecycle-methods-in-same-multiplatformios-macos-watchos
-
-- two options for schemes, plist, xcconfig (xcodegen, manual)
+- modify modular architecture init as swiftui init 
 - create example counter project for template.
 
 # Design Notes
@@ -46,6 +45,10 @@ A swift script that should be run once when project repo is cloned.
 ### Resources
 
 #### XcodeGen
+- .xcconfig, .xcscheme, .plist files controlled seperately due to two main reason;
+  - XcodeGen doesn't have all features of .xcscheme.
+  - These files are native Xcode files, it is better to maintain them as it is to
+    keep them updated with the new Xcode versions and features.
 
 #### Assets
 - Application icon for each target.
