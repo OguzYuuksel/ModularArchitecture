@@ -13,7 +13,7 @@ options:
     - pattern: Sources
       order: [App, ComplicationController, NotificationController, AppState, AppAction, appReducer, AppEnvironment]
     - pattern: Resources
-      order: [Assets, LaunchScreen, Localization, XCconfig, Plist, Entitlements, Scripts, XcodeGen]
+      order: [Assets, Localization, XCconfig, Plist, Entitlements, Scripts, XcodeGen]
     - pattern: XCconfig
       order: [Base, MockSim, MockDev, LiveSim, LiveDev, AppStore]
 

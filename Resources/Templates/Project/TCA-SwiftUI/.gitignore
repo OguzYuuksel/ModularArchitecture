@@ -3,10 +3,10 @@
 **/*.resolved
 **/.swiftpm
 **/.build
-/Sources/Packages/
-/Resources/Tools/
+/Sources/Packages/*.*
+/Resources/Tools/*.*
 
 # Optionals
-# /Resources/Plist/
-# /Resources/Entitlements/
-# /Resources/XCconfig/
+# /Resources/Plist/*.*
+# /Resources/Entitlements/*.*
+# /Resources/XCconfig/*.*

@@ -1,0 +1,20 @@
+// Project: <<ProjectName>> - Shared
+// File: en.lproj/Localizable.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
+//
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
+
+// #####################################################################################################
+// # - How to use;                                                                                     #
+// #   - https://stackoverflow.com/a/43762760/14811879                                                 #
+// #                                                                                                   #
+// # - Sample ContentView.swift                                                                        #
+// #   - String(format: NSLocalizedString("Developed by %@.", comment: ""), "Oğuz Yüksel")             #
+// #     String(format: NSLocalizedString("%d times tapped.", comment: ""), 10)                        #
+// #                                                                                                   #
+// # - Sample Localizable.strings                                                                      #
+// #   - "%d times tapped." = "%d kez tıklandı.";                                                      #
+// #     "Developed by %@." = "%@ tarafından geliştirildi.";                                           #
+// #####################################################################################################
+
+"test" = "This is a test string.";

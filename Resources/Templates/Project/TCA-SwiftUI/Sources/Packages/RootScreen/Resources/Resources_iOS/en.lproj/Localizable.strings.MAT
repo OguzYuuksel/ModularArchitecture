@@ -1,8 +1,8 @@
-// Project: UIKit-TCA
-// File: Base.lproj/Localizable.swift
-// Copyright © 2022 Oguz Yuksel. All rights reserved.
+// Project: <<ProjectName>> - Shared
+// File: en.lproj/Localizable.swift
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
 //
-// Created by Oguz Yuksel(oguz.yuuksel@gmail.com) on 21.04.2022.
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
 
 // #####################################################################################################
 // # - How to use;                                                                                     #
@@ -13,10 +13,8 @@
 // #     String(format: NSLocalizedString("%d times tapped.", comment: ""), 10)                        #
 // #                                                                                                   #
 // # - Sample Localizable.strings                                                                      #
-// #   - "%d times tapped." = "%d times tapped.";                                                      #
-// #     "Developed by %@." = "Developed by %@.";                                                      #
+// #   - "%d times tapped." = "%d kez tıklandı.";                                                      #
+// #     "Developed by %@." = "%@ tarafından geliştirildi.";                                           #
 // #####################################################################################################
 
-"%d times tapped." = "%d times tapped.";
-"Developed by %@." = "Developed by %@.";
-"Restart Counter" = "Restart Counter";
+"test" = "This is a test string.";

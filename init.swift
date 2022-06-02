@@ -53,6 +53,9 @@ if let packagePath = packagePath,
     echoSuccess(createPackage.output)
 }
 
+// MARK: Step 6 - Remove Executable
+try? FileManager.default.removeItem(at: executableFile)
+
 echoInfo("\n")
 
 // MARK: - Swift Helpers

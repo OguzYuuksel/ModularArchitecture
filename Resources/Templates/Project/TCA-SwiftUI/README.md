@@ -8,24 +8,22 @@
   - Creating multiple target project at ~/Desktop/space test/<projectName>.
   - Check *.template contents.
   - Check file existences.
-- Package level Localization.
-- Font support project level (info.plist).
-  - Just for example implement to the Shared module via: https://stackoverflow.com/a/62691001/14811879 for a branch.
 
-- init will be script, modular architecture will be tool. with createproject and create package options.
+- TODO: iOS 13(UIKit) Support
+  https://stackoverflow.com/questions/62880536/supporting-different-lifecycle-methods-in-same-multiplatformios-macos-watchos
+
 - two options for schemes, plist, xcconfig (xcodegen, manual)
 - create example counter project for template.
 
-
 # Design Notes
 ## Project
-- TODO: iOS 13(UIKit) Support
-  https://stackoverflow.com/questions/62880536/supporting-different-lifecycle-methods-in-same-multiplatformios-macos-watchos
 - Project sources (not packages) shouldn't have any Screen or Client!
 - If project sources needs Localization or Resources (Assets) then;
   - Consider creating a new module for that part.
   - Consider placing these Localization and Resources into the Shared module,
     and try to use from there.
+- Font support should be implemented via Shared module
+  - Example: https://stackoverflow.com/a/62691001/14811879
 
 ### init.swift
 A swift script that should be run once when project repo is cloned.
@@ -48,17 +46,19 @@ A swift script that should be run once when project repo is cloned.
 ### Resources
 
 #### XcodeGen
-- TODO: Schemes
 
 #### Assets
 - Application icon for each target.
 - Complication for watchOS.extension target.
 - Top Shelf Image for tvOS target.
 
-#### LaunchScreen
+#### Localization
+##### LaunchScreen
 - LaunchScreen.storyboard will be used instead of .plist option since
   storyboard has Autolayout, String Localization and much more advantages.
 - Localization is not possible in LaunchScreen. Therefore, texts are not recommended.
+
+##### InfoPlist
 
 #### Templates
 ##### Package

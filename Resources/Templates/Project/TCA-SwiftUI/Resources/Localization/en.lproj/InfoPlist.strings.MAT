@@ -1,8 +1,8 @@
-// Project: UIKit-TCA
-// File: tr.lproj/InfoPlist.strings
-// Copyright © 2022 Oguz Yuksel. All rights reserved.
+// Project: <<ProjectName>> - Resources
+// File: en.lproj/InfoPlist.strings
+// Copyright © <<YYYY>> <<DeveloperNameSurname>>. All rights reserved.
 //
-// Created by Oguz Yuksel(oguz.yuuksel@gmail.com) on 21.04.2022.
+// Created by <<DeveloperNameSurname>>(<<DeveloperMail>>) on <<DD.MM.YYYY>>.
 
 // #####################################################################################################
 // # - Sample Info.plist                                                                               #
@@ -13,7 +13,5 @@
 // #                                                                                                   #
 // # - Sample InfoPlist.strings                                                                        #
 // #   - CFBundleDisplayName = "TextEdit";                                                             #
-// #     NSHumanReadableCopyright = "Telif Hakkı © 1995-2009 Apple Inc.\nTüm Hakları Saklıdır.";       #
+// #     NSHumanReadableCopyright = "Copyright © 1995-2009 Apple Inc.\nAll Rights Reserved.";          #
 // #####################################################################################################
-
-CFBundleDisplayName = "TCA Projesi";  
