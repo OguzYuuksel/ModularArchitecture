@@ -48,6 +48,10 @@ extension ModularArchitecture {
             guard (try? FileManager.default.contentsOfDirectory(at: projectDir, includingPropertiesForKeys: nil)) == nil else {
                 throw ValidationError(recoverySuggestion: "Please clean \"\(projectDir.path)\"")
             }
+            guard (try? FileManager.default.contentsOfDirectory(at: FileDestination.tcaProjectTeplateDir, includingPropertiesForKeys: nil)) != nil else {
+                throw ValidationError(recoverySuggestion: "Empty template path \"\(FileDestination.tcaProjectTeplateDir.path)\"")
+            }
+            try? FileManager.default.createDirectory(atPath: projectDir.deletingLastPathComponent().path, withIntermediateDirectories: true, attributes: nil)
         }
         
         mutating func run() throws {
@@ -60,7 +64,7 @@ extension ModularArchitecture {
             do {
                 try FileManager.default.copyItem(at: FileDestination.tcaProjectTeplateDir, to: projectDir)
             } catch let error {
-                print(error.localizedDescription)
+                terminateWithFailure(reason: error.localizedDescription)
             }
         }
         
@@ -97,9 +101,15 @@ extension ModularArchitecture {
                     try file.write(to: fileURL.deletingPathExtension(), atomically: true, encoding: .utf8)
 
                 } catch let error {
-                    print(error.localizedDescription)
+                    terminateWithFailure(reason: error.localizedDescription)
                 }
             }
+        }
+        
+        private func terminateWithFailure(reason: String) -> Never {
+            echoFailure(reason)
+            try? FileManager.default.removeItem(at: projectDir)
+            return ModularArchitecture.CreateProject.exit()
         }
         
     }

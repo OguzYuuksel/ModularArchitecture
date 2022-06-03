@@ -1,19 +1,3 @@
-
-./Resources/Tools/XcodeGen/.build/debug/XcodeGen -s ./Resources/XcodeGen/Project.yml -p ~/iOS_Development/Example\ Projects/TCA-SampleProjects -r ~/iOS_Development/Example\ Projects/TCA-SampleProjects
-
-### TODO
-- Develop Command Line Tool equivalent with below tests.
-  - Creating each target alone at ~/Desktop/<projectName>.
-  - Creating multiple target project at ~/Desktop/<projectName>.
-  - Creating multiple target project at ~/Desktop/space test/<projectName>.
-  - Check *.template contents.
-  - Check file existences.
-
-- TODO: iOS 13(UIKit) Support
-  https://stackoverflow.com/questions/62880536/supporting-different-lifecycle-methods-in-same-multiplatformios-macos-watchos
-- modify modular architecture init as swiftui init 
-- create example counter project for template.
-
 # Design Notes
 ## Project
 - Project sources (not packages) shouldn't have any Screen or Client!

@@ -52,6 +52,9 @@ extension ModularArchitecture {
             guard (try? FileManager.default.contentsOfDirectory(at: packageDir, includingPropertiesForKeys: nil)) == nil else {
                 throw ValidationError(recoverySuggestion: "Please clean \"\(packageDir.path)\"")
             }
+            guard (try? FileManager.default.contentsOfDirectory(at: type.templateDir, includingPropertiesForKeys: nil)) != nil else {
+                throw ValidationError(recoverySuggestion: "Empty template path \"\(type.templateDir.path)\"")
+            }
         }
         
         mutating func run() {
@@ -65,7 +68,7 @@ extension ModularArchitecture {
             do {
                 try FileManager.default.copyItem(at: type.templateDir, to: packageDir)
             } catch let error {
-                print(error.localizedDescription)
+                terminateWithFailure(reason: error.localizedDescription)
             }
         }
         
@@ -97,7 +100,7 @@ extension ModularArchitecture {
                             try FileManager.default.moveItem(at: fileURL, to: newURL)
                             isDirectoryChanged = true
                     } catch {
-                        print(error.localizedDescription)
+                        terminateWithFailure(reason: error.localizedDescription)
                     }
                     
                 case _ where fileName.hasPrefix(StringSet.template_packageName):
@@ -109,7 +112,7 @@ extension ModularArchitecture {
                                 try FileManager.default.moveItem(at: fileURL, to: newURL)
                                 isDirectoryChanged = true
                         } catch {
-                            print(error.localizedDescription)
+                            terminateWithFailure(reason: error.localizedDescription)
                         }
                     
                 case _ where fileName.hasPrefix(StringSet.template_packagename):
@@ -121,7 +124,7 @@ extension ModularArchitecture {
                             try FileManager.default.moveItem(at: fileURL, to: newURL)
                             isDirectoryChanged = true
                     } catch {
-                        print(error.localizedDescription)
+                        terminateWithFailure(reason: error.localizedDescription)
                     }
                     
                 default:
@@ -167,10 +170,17 @@ extension ModularArchitecture {
                     try file.write(to: fileURL.deletingPathExtension(), atomically: true, encoding: .utf8)
                     
                 } catch let error {
-                    print(error.localizedDescription)
+                    terminateWithFailure(reason: error.localizedDescription)
                 }
             }
         }
+        
+        private func terminateWithFailure(reason: String) -> Never {
+            echoFailure(reason)
+            try? FileManager.default.removeItem(at: packageDir)
+            return ModularArchitecture.CreatePackage.exit()
+        }
+        
     }
 }
 

@@ -17,3 +17,4 @@ struct ModularArchitecture: ParsableCommand {
         subcommands: [CreateProject.self, CreatePackage.self],
         defaultSubcommand: CreateProject.self)
 }
+

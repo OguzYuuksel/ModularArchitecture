@@ -1,67 +1,160 @@
 import Foundation
 
 // MARK: Step 1 - Enter arguments
-let projectName: String = "LinkNow1"
-let packageName: String? = "OnlineCourse"
-let developer: String = "Oguz\\ Yuksel"
-let contact: String = "oguz.yuksel@huawei.com"
-let projectPath: String? = "~/Desktop/"
-let bundleIDPrefix: String? = "com.huawei"
-let packagePath: String? = "~/Desktop/LinkNow/Sources/Packages" // <projectPath>/Sources/Packages
-let packageType: String? = "screen"
+let rebuildTool: Bool = true
+let projectName: String = "LinkNow3"^
+let packageName: String? = "OnlineCourse"^
+let developer: String = "Oguz Yuksel"^
+let contact: String = "oguz.yuksel@huawei.com"^
+let projectPath: String? = "~/Desktop/2 3/"^
+let bundleIDPrefix: String? = "com.huawei"^
+let packagePath: String? = "~/Desktop/2 3/LinkNow3/Sources/Packages"^ // <projectPath>/Sources/Packages
+let packageType: String? = "screen"^
 
-// MARK: Step 2 - Build Executable
-if !FileManager.default.fileExists(atPath: buildFile.path) {
-    let buildMAT = Commands.run("cd \(scriptDir!.path); swift build")
-    guard buildMAT.statusCode == 0 else {
-        echoFailure(buildMAT.output)
-        exit(0)
+
+
+
+
+
+
+
+
+// MARK: Step 2 - Remove ModularArchitecture tool from project path.
+echoInfo("Removing ModularArchitecture from project path...")
+try? FileManager.default.removeItem(at: Destination.projectDirTool.url)
+echoSuccess("Completed ✓")
+
+// MARK: Step 3 - Build ModularArchitecture tool.
+if !FileManager.default.fileExists(atPath: Destination.buildDirTool.path) || rebuildTool {
+    echoInfo("Removing .build directory...")
+    try? FileManager.default.removeItem(at: Destination.buildDir.url)
+    echoSuccess("Completed ✓")
+    
+    echoInfo("Building ModularArchitecture tool...")
+    let buildTool = Commands.run("cd \(Destination.project.commandsPath); swift build")
+    guard buildTool.statusCode == 0 else {
+        terminateWithFailure(reason: buildTool.output)
     }
+    echoSuccess("Completed ✓")
 }
 
-// MARK: Step 3 - Remove Executable
-try? FileManager.default.removeItem(at: executableFile)
+// MARK: Step 4 - Copy ModularArchitecture tool to project path.
+echoInfo("Copying ModularArchitecture from build directory to main directory...")
+do {
+    try FileManager.default.copyItem(at: Destination.buildDirTool.url, to: Destination.projectDirTool.url)
+} catch let error {
+    terminateWithFailure(reason: error.localizedDescription)
+}
+echoSuccess("Completed ✓")
 
-// MARK: Step 4 - Copy Executable
-try? FileManager.default.copyItem(at: buildFile, to: executableFile)
+// MARK: Step 5 - Running ModularArchitecture tool.
+echoInfo("Running ModularArchitecture tool...")
 
-
-// MARK: Step 5 - Run ModularArchitecture CLI
-echoInfo("\n\n")
-// create-project
+// Creating Project
 if let projectPath = projectPath,
    let bundleIDPrefix = bundleIDPrefix {
     echoInfo("Creating Project...")
-    let createProject = Commands.run("\(executableFile.path) create-project -n \(projectName) -b \(bundleIDPrefix) -d \(developer) -c \(contact) -p \(projectPath)")
+    let createProject = Commands.run("\(Destination.projectDirTool.commandsPath) create-project -n \(projectName) -b \(bundleIDPrefix) -d \(developer) -c \(contact) -p \(projectPath)")
     guard createProject.statusCode == 0 else {
-        echoFailure(createProject.output)
-        exit(0)
+        terminateWithFailure(reason: createProject.output)
     }
-    echoSuccess(createProject.output)
+    echoSuccess("Completed ✓")
 }
 
-// create-package
+// Creating Package
 if let packagePath = packagePath,
    let packageName = packageName,
    let packageType = packageType {
     echoInfo("Creating Package...")
-    let createPackage = Commands.run("\(executableFile.path) create-package -n \(projectName) -package \(packageName) -d \(developer) -c \(contact) -t \(packageType) -p \(packagePath)")
+    let createPackage = Commands.run("\(Destination.projectDirTool.commandsPath) create-package -n \(projectName) -package \(packageName) -d \(developer) -c \(contact) -t \(packageType) -p \(packagePath)")
     guard createPackage.statusCode == 0 else {
-        echoFailure(createPackage.output)
-        exit(0)
+        terminateWithFailure(reason: createPackage.output)
     }
-    echoSuccess(createPackage.output)
+    echoSuccess("Completed ✓")
+}
+echoSuccess("Completed ✓")
+
+// MARK: Step 6 - Remove ModularArchitecture tool from project path.
+echoInfo("Removing ModularArchitecture from project path...")
+try? FileManager.default.removeItem(at: Destination.projectDirTool.url)
+echoSuccess("Completed ✓")
+
+
+
+
+
+
+
+
+
+// MARK: - Script Helpers
+// MARK: Destination
+enum Destination {
+    
+    case project
+    case projectDirTool
+    case buildDir
+    case debugDir
+    case buildDirTool
+    
+    private static let scriptDirectory: URL = scriptDir
+    
+    var url: URL {
+        switch self {
+        case .project:
+            return Destination.scriptDirectory
+            
+        case .projectDirTool:
+            return Destination.project.url
+                .appendingPathComponent("ModularArchitecture", isDirectory: false)
+         
+        case .buildDir:
+            return Destination.project.url
+                .appendingPathComponent(".build", isDirectory: true)
+            
+        case .debugDir:
+            return Destination.buildDir.url
+                .appendingPathComponent("debug", isDirectory: true)
+            
+        case .buildDirTool:
+            return Destination.debugDir.url
+                .appendingPathComponent("ModularArchitecture", isDirectory: false)
+        }
+    }
+    var path: String {
+        self.url.path
+    }
+    var commandsPath: String {
+        self.path.commandsString
+    }
+    
 }
 
-// MARK: Step 6 - Remove Executable
-try? FileManager.default.removeItem(at: executableFile)
+// MARK: Termatination
+func terminateWithFailure(reason: String) -> Never {
+    echoFailure(reason)
+    let removingURLs: [URL] = [Destination.projectDirTool.url, Destination.buildDir.url]
+    let argumentURLs: [URL] = [projectPath, packagePath].compactMap { $0?.url }
+    (removingURLs + argumentURLs).forEach { url in
+        try? FileManager.default.removeItem(at: url)
+    }
+    return exit(EXIT_FAILURE)
+}
 
-echoInfo("\n")
+
+
+
+
+
+
+
+
+
 
 // MARK: - Swift Helpers
 // MARK: Shell Support
 enum Commands {
-
+    
     static func run(_ command: String,
                     environment: [String: String]? = nil,
                     executableURL: String = "/bin/bash",
@@ -82,7 +175,7 @@ enum Commands {
             process.arguments = [dashc, command]
             return process
         }
-
+        
         // run process
         func run(_ process: Process) throws {
             if #available(macOS 10.13, *) {
@@ -92,7 +185,7 @@ enum Commands {
             }
             process.waitUntilExit()
         }
-
+        
         // read data
         func fileHandleData(fileHandle: FileHandle) throws -> String? {
             var outputData: Data?
@@ -106,21 +199,21 @@ enum Commands {
             }
             return nil
         }
-
+        
         let process = create(executableURL, dashc: dashc, environment: environment)
-
+        
         let outputPipe = Pipe()
         process.standardOutput = outputPipe
-
+        
         let errorPipe = Pipe()
         process.standardError = errorPipe
-
+        
         do {
             try run(process)
-
+            
             let outputActual = try fileHandleData(fileHandle: outputPipe.fileHandleForReading) ?? ""
             let errorActual = try fileHandleData(fileHandle: errorPipe.fileHandleForReading) ?? ""
-
+            
             if process.terminationStatus == EXIT_SUCCESS {
                 return Result(statusCode: process.terminationStatus, output: outputActual)
             }
@@ -128,19 +221,19 @@ enum Commands {
         } catch let error {
             return Result(statusCode: process.terminationStatus, output: error.localizedDescription)
         }
-
+        
     }
-
+    
     struct Result {
         public let statusCode: Int32
         public let output: String
     }
-
+    
 }
 
 func readSTDIN () -> String? {
     var input: String?
-
+    
     while let line = readLine() {
         if input == nil {
             input = line
@@ -148,7 +241,7 @@ func readSTDIN () -> String? {
             input! += "\n" + line
         }
     }
-
+    
     return input
 }
 
@@ -164,23 +257,10 @@ var readLineWithQuit: String? {
     readLine(exitCode: "quit")
 }
 
-var scriptDir: URL? {
-    let cwd = FileManager.default.currentDirectoryPath
-    let script = CommandLine.arguments[0]
-    
-    if script.hasPrefix("/") {
-        return URL(fileURLWithPath: (script as NSString).deletingLastPathComponent)
-    } else {
-        let urlCwd = URL(fileURLWithPath: cwd)
-        if let path = URL(string: script, relativeTo: urlCwd)?.path {
-            return URL(fileURLWithPath: (path as NSString).deletingLastPathComponent)
-        }
-        return nil
-    }
+var scriptDir: URL {
+    let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+    return URL(fileURLWithPath: CommandLine.arguments[0], relativeTo: currentDirectoryURL).deletingLastPathComponent()
 }
-
-var buildFile: URL { scriptDir!.appendingPathComponent(".build").appendingPathComponent("debug").appendingPathComponent("ModularArchitecture", isDirectory: false) }
-var executableFile: URL { scriptDir!.appendingPathComponent("ModularArchitecture", isDirectory: false) }
 
 // MARK: Echo
 var echoClear: Void {
@@ -217,9 +297,26 @@ enum ASCIIColor: String {
 }
 
 extension DefaultStringInterpolation {
-
+    
     mutating func appendInterpolation<T: CustomStringConvertible>(_ value: T, color: ASCIIColor) {
         appendInterpolation("\(color.rawValue)\(value)\(ASCIIColor.default.rawValue)")
     }
+    
+}
 
+extension String {
+    
+    var commandsString: String {
+        self.replacingOccurrences(of: " ", with: "\\ ")
+    }
+    
+    var url: URL {
+        URL(fileURLWithPath: self)
+    }
+    
+}
+
+postfix operator ^
+postfix func ^(string: String) -> String {
+    return string.commandsString
 }

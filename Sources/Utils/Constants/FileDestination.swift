@@ -1,10 +1,8 @@
-//
-// Project: 
-// File: File.swift
+// Project: ModularArchitecture
+// File: FileDestination.swift
 // Copyright © 2022 Oguz Yuksel. All rights reserved.
 //
-// Created by Oguz Yuksel(oguz.yuuksel@gmail.com) on 25.05.2022.
-//
+// Created by Oguz Yuksel(oguz.yuuksel@gmail.com) on 21.05.2022.
 
 import Foundation
 
