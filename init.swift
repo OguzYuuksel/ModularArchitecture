@@ -1,15 +1,19 @@
 import Foundation
 
 // MARK: Step 1 - Enter arguments
-let rebuildTool: Bool = true
-let projectName: String = "LinkNow3"^
-let packageName: String? = "OnlineCourse"^
-let developer: String = "Oguz Yuksel"^
-let contact: String = "oguz.yuksel@huawei.com"^
-let projectPath: String? = "~/Desktop/2 3/"^
-let bundleIDPrefix: String? = "com.huawei"^
-let packagePath: String? = "~/Desktop/2 3/LinkNow3/Sources/Packages"^ // <projectPath>/Sources/Packages
-let packageType: String? = "screen"^
+let rebuildTool: Bool = // false
+let projectName: String = // "<projectName>"^
+let developer: String = // "<developerNameSurname>"^
+let contact: String = // "<developerContactInfo>"^
+
+// Project
+let projectPath: String? = nil // "~/<projectParentDir>"^
+let bundleIDPrefix: String? = nil // "com.<projectname>"^
+
+// Package
+let packageName: String? = nil // "Settings"^
+let packagePath: String? = nil // "~/<projectDir>/Sources/Packages"^
+let packageType: String? = nil // "screen"^
 
 
 
